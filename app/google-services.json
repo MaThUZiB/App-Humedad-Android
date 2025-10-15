@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "456507482625",
+    "firebase_url": "https://sensorhumtemp-default-rtdb.firebaseio.com",
+    "project_id": "sensorhumtemp",
+    "storage_bucket": "sensorhumtemp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:456507482625:android:00a697ed0c58a3f4855600",
+        "android_client_info": {
+          "package_name": "com.example.humedadtempapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9EG_YzG_OzoZ3RL95HpYRHvPwYfBPV3I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
