@@ -1,47 +1,45 @@
 package com.example.humedadtempapp
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.humedadtempapp.ui.theme.HumedadTempAppTheme
+import com.google.firebase.database.FirebaseDatabase
+import android.util.Log
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+
         setContent {
-            HumedadTempAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
+            // Aquí podrías poner tu UI Compose
         }
-    }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+        // 🔹 Obtener referencia de Firebase
+        val database = FirebaseDatabase.getInstance()
+        val myRef = database.getReference("mensaje") // Referencia "mensaje"
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    HumedadTempAppTheme {
-        Greeting("Android")
+        // 🔹 Escribir un valor de prueba
+        myRef.setValue("¡Hola Firebase desde Compose!")
+            .addOnSuccessListener {
+                Toast.makeText(this, "Datos enviados correctamente", Toast.LENGTH_SHORT).show()
+                Log.d("FirebaseTest", "Datos enviados correctamente")
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Error al enviar datos", Toast.LENGTH_SHORT).show()
+                Log.e("FirebaseTest", "Error al enviar datos", e)
+            }
+
+        // 🔹 Leer el valor de prueba
+        myRef.get()
+            .addOnSuccessListener { snapshot ->
+                val valor = snapshot.getValue(String::class.java)
+                Toast.makeText(this, "Valor leído: $valor", Toast.LENGTH_SHORT).show()
+                Log.d("FirebaseTest", "Valor leído: $valor")
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Error al leer datos", Toast.LENGTH_SHORT).show()
+                Log.e("FirebaseTest", "Error al leer datos", e)
+            }
     }
 }
